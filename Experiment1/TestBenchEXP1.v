@@ -40,8 +40,5 @@ module TestBenchEXP1();
         a = 1; b = 1; c = 0; d = 1; #10;
         a = 1; b = 1; c = 1; d = 0; #10;
         a = 1; b = 1; c = 1; d = 1; #10;
-
-        $finish;
     end
-
 endmodule
