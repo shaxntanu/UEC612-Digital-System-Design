@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 11.08.2026 14:51:29
+// Create Date: 11.08.2026 14:49:43
 // Design Name: 
-// Module Name: tb_mux
+// Module Name: Mux
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,24 +20,22 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module tb_mux();
+module mux4x1(I0, I1, I2, I3, S1, S0, Y);
 
-reg I0, I1, I2, I3, S1, S0;
-wire Y;
+input I0, I1, I2, I3, S1, S0;
+output Y;
 
-mux4x1 el(I0, I1, I2, I3, S1, S0, Y);
+wire S1_bar, S0_bar;
+wire W0, W1, W2, W3;
 
-initial begin
+not (S1_bar, S1);
+not (S0_bar, S0);
 
-    I0 = 0; I1 = 1; I2 = 0; I3 = 1;
+and (W0, I0, S1_bar, S0_bar);
+and (W1, I1, S1_bar, S0);
+and (W2, I2, S1, S0_bar);
+and (W3, I3, S1, S0);
 
-    S1 = 0; S0 = 0; #10;
-    S1 = 0; S0 = 1; #10;
-    S1 = 1; S0 = 0; #10;
-    S1 = 1; S0 = 1; #10;
-
-    $finish;
-
-end
+or (Y, W0, W1, W2, W3);
 
 endmodule
